@@ -12,6 +12,7 @@
 (def scroll-view (r/adapt-react-class (.-ScrollView ReactNative)))
 (def image (r/adapt-react-class (.-Image ReactNative)))
 (def touchable-highlight (r/adapt-react-class (.-TouchableHighlight ReactNative)))
+(def text-input (r/adapt-react-class (.-TextInput ReactNative)))
 
 (def ramon (js/require "./images/ramon.jpg"))
 (def amigos-img (js/require "./images/amigos.jpg"))
@@ -29,14 +30,29 @@
        [view {:style {:flex-direction "column" :margin 40 :align-items "center"}}
         [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} @greeting]
         [image {:source ramon
-                :style  {:width 320 :height 340 :margin-bottom 30}}]
+                :style  {:width 320 :height 340 :margin-bottom 30
+                         :border-top-left-radius 25
+                         :border-top-right-radius 25
+                         :border-bottom-left-radius 25
+                         :border-bottom-right-radius 25}}]
         [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} @amigos]
         [image {:source amigos-img
-                :style  {:width 320 :height 340 :margin-bottom 30}}]
+                :style  {:width 320 :height 340 :margin-bottom 30
+                         :border-top-left-radius 25
+                         :border-top-right-radius 25
+                         :border-bottom-left-radius 25
+                         :border-bottom-right-radius 25}}]
         [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} @peluca]
         [image {:source peluca-img
-                :style  {:width 320 :height 340 :margin-bottom 30}}]
-        
+                :style  {:width 320 :height 340 :margin-bottom 30
+                         :border-top-left-radius 25
+                         :border-top-right-radius 25
+                         :border-bottom-left-radius 25
+                         :border-bottom-right-radius 25}}]
+
+        [text-input {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}
+                     :on-change-text #(dispatch [:set-greeting %])} @greeting]
+
         [touchable-highlight {:style {:background-color "#999" :padding 10 :border-radius 5}
                               :on-press #(alert "HELLAAAOOOO!!")}
          [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "press me"]]]])))
