@@ -21,38 +21,36 @@
 (defn alert [title]
   (.alert (.-Alert ReactNative) title))
 
+(defn custom-img [imagen]
+  [image {:source imagen
+          :style  {:width 320 :height 340 :margin-bottom 30
+                   :border-top-left-radius 25
+                   :border-top-right-radius 25
+                   :border-bottom-left-radius 25
+                   :border-bottom-right-radius 25}}])
+
+(defn custom-text [texto]
+  [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} texto])
+
 (defn app-root []
   (let [greeting (subscribe [:get-greeting])
         amigos (subscribe [:get-amigos])
         peluca (subscribe [:get-peluca])]
     (fn []
       [scroll-view {:style {:flex-direction "column" :margin 30}}
-       [view {:style {:flex-direction "column" :margin 40 :align-items "center"}}
-        [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} @greeting]
-        [image {:source ramon
-                :style  {:width 320 :height 340 :margin-bottom 30
-                         :border-top-left-radius 25
-                         :border-top-right-radius 25
-                         :border-bottom-left-radius 25
-                         :border-bottom-right-radius 25}}]
-        [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} @amigos]
-        [image {:source amigos-img
-                :style  {:width 320 :height 340 :margin-bottom 30
-                         :border-top-left-radius 25
-                         :border-top-right-radius 25
-                         :border-bottom-left-radius 25
-                         :border-bottom-right-radius 25}}]
-        [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} @peluca]
-        [image {:source peluca-img
-                :style  {:width 320 :height 340 :margin-bottom 30
-                         :border-top-left-radius 25
-                         :border-top-right-radius 25
-                         :border-bottom-left-radius 25
-                         :border-bottom-right-radius 25}}]
+       [view {:style {:flex-direction "column" :align-items "center" :margin 40}}
 
+        [custom-text @greeting]
+        [custom-img ramon]
+
+        [custom-text @amigos]
+        [custom-img amigos-img]
+
+        [custom-text @peluca]
+        [custom-img peluca-img]
+        
         [text-input {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}
                      :on-change-text #(dispatch [:set-greeting %])} @greeting]
-
         [touchable-highlight {:style {:background-color "#999" :padding 10 :border-radius 5}
                               :on-press #(alert "HELLAAAOOOO!!")}
          [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "press me"]]]])))
